@@ -17,9 +17,7 @@ namespace Arthes.DATA.Models
 
         [Key]
         public int Id { get; set; }
-        [Required]
-        [StringLength(256)]
-        [Unicode(false)]
+
         public string Nome { get; set; }
 
         [InverseProperty("Fabricante")]

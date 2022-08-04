@@ -21,7 +21,6 @@ namespace Arthes.DATA.Models
         [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Campo Obrigatóriooooooooooooooo")]
         public string Tema { get; set; }
         public int NumEdicao { get; set; }
         public Mes MesEdicao { get; set; }

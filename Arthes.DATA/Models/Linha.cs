@@ -17,13 +17,8 @@ namespace Arthes.DATA.Models
 
         [Key]
         public int Id { get; set; }
-        [Required]
-        [StringLength(10)]
-        [Unicode(false)]
+
         public string CodLinha { get; set; }
-        [Required]
-        [StringLength(128)]
-        [Unicode(false)]
         public string NomeCor { get; set; }
         public int TipoLinhaId { get; set; }
         public int FabricanteId { get; set; }

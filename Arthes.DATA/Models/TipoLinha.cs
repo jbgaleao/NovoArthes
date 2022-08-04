@@ -17,9 +17,7 @@ namespace Arthes.DATA.Models
 
         [Key]
         public int Id { get; set; }
-        [Required]
-        [StringLength(256)]
-        [Unicode(false)]
+
         public string Descricao { get; set; }
 
         [InverseProperty("TipoLinha")]

@@ -33,21 +33,21 @@ namespace Arthes.DATA.Repositories
 
         public async Task Insert(T entity)
         {
-           await _context.Set<T>().AddAsync(entity);
-           await _context.SaveChangesAsync();
+            _ = await _context.Set<T>().AddAsync(entity);
+            _ = await _context.SaveChangesAsync();
         }
 
         public async Task Update(T entity)
         {
-            _context.Set<T>().Update(entity);
-            await _context.SaveChangesAsync();
+            _ = _context.Set<T>().Update(entity);
+            _ = await _context.SaveChangesAsync();
         }
 
         public async Task Delete(int? id)
         {
             T entity = await GetById(id);
-            _context.Set<T>().Remove(entity);
-            await _context.SaveChangesAsync();
+            _ = _context.Set<T>().Remove(entity);
+            _ = await _context.SaveChangesAsync();
         }
 
         public void Dispose()
