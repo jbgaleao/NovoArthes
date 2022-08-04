@@ -17,7 +17,7 @@ builder.Services.AddControllersWithViews()
     .AddFluentValidation(v =>
     {
         v.RegisterValidatorsFromAssemblyContaining<ValidatorRevista>();
-        v.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
+  //      v.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
         
     });
 

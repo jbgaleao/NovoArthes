@@ -17,7 +17,7 @@ namespace Arthes.DATA.Models
 
         [Key]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Campo Obrigatório")]
         [StringLength(100)]
         [Unicode(false)]
         public string Nome { get; set; }
