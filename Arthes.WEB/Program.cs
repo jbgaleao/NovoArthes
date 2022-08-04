@@ -1,12 +1,9 @@
 
-using System.Globalization;
-
 using Arthes.DATA.Data;
 using Arthes.DATA.Interfaces;
 using Arthes.DATA.Repositories;
 using Arthes.DATA.Validations;
 
-using FluentValidation;
 using FluentValidation.AspNetCore;
 
 using Microsoft.EntityFrameworkCore;
@@ -17,11 +14,11 @@ builder.Services.AddControllersWithViews()
     .AddFluentValidation(v =>
     {
         v.RegisterValidatorsFromAssemblyContaining<ValidatorRevista>();
-  //      v.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
-        
+        //      v.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
+
     });
 
-    //ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("pt-BR");
+//ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("pt-BR");
 
 builder.Services.AddDbContext<ArthesContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ArthesConn")));
 

@@ -7,7 +7,7 @@ namespace Arthes.DATA.Interfaces
         Task<IEnumerable<T>> GetAll();
         Task<T> GetById(int? id);
         Task Insert(T entity);
-        Task Update( T entity);
+        Task Update(T entity);
         Task Delete(int? id);
 
 

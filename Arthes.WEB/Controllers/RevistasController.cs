@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Arthes.DATA.Data;
+﻿using Arthes.DATA.Data;
 using Arthes.DATA.Models;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Arthes.WEB.Controllers
 {
@@ -22,9 +18,9 @@ namespace Arthes.WEB.Controllers
         // GET: Revistas
         public async Task<IActionResult> Index()
         {
-              return _context.Revista != null ? 
-                          View(await _context.Revista.ToListAsync()) :
-                          Problem("Entity set 'ArthesContext.Revista'  is null.");
+            return _context.Revista != null ?
+                        View(await _context.Revista.ToListAsync()) :
+                        Problem("Entity set 'ArthesContext.Revista'  is null.");
         }
 
         // GET: Revistas/Details/5
@@ -35,14 +31,9 @@ namespace Arthes.WEB.Controllers
                 return NotFound();
             }
 
-            var revista = await _context.Revista
+            Revista? revista = await _context.Revista
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (revista == null)
-            {
-                return NotFound();
-            }
-
-            return View(revista);
+            return revista == null ? NotFound() : View(revista);
         }
 
         // GET: Revistas/Create
@@ -60,8 +51,8 @@ namespace Arthes.WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(revista);
-                await _context.SaveChangesAsync();
+                _ = _context.Add(revista);
+                _ = await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(revista);
@@ -75,12 +66,8 @@ namespace Arthes.WEB.Controllers
                 return NotFound();
             }
 
-            var revista = await _context.Revista.FindAsync(id);
-            if (revista == null)
-            {
-                return NotFound();
-            }
-            return View(revista);
+            Revista? revista = await _context.Revista.FindAsync(id);
+            return revista == null ? NotFound() : View(revista);
         }
 
         // POST: Revistas/Edit/5
@@ -99,8 +86,8 @@ namespace Arthes.WEB.Controllers
             {
                 try
                 {
-                    _context.Update(revista);
-                    await _context.SaveChangesAsync();
+                    _ = _context.Update(revista);
+                    _ = await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -126,14 +113,9 @@ namespace Arthes.WEB.Controllers
                 return NotFound();
             }
 
-            var revista = await _context.Revista
+            Revista? revista = await _context.Revista
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (revista == null)
-            {
-                return NotFound();
-            }
-
-            return View(revista);
+            return revista == null ? NotFound() : View(revista);
         }
 
         // POST: Revistas/Delete/5
@@ -145,19 +127,19 @@ namespace Arthes.WEB.Controllers
             {
                 return Problem("Entity set 'ArthesContext.Revista'  is null.");
             }
-            var revista = await _context.Revista.FindAsync(id);
+            Revista? revista = await _context.Revista.FindAsync(id);
             if (revista != null)
             {
-                _context.Revista.Remove(revista);
+                _ = _context.Revista.Remove(revista);
             }
-            
-            await _context.SaveChangesAsync();
+
+            _ = await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool RevistaExists(int id)
         {
-          return (_context.Revista?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Revista?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

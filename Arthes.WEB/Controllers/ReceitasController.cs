@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Arthes.DATA.Data;
+using Arthes.DATA.Models;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Arthes.DATA.Data;
-using Arthes.DATA.Models;
 
 namespace Arthes.WEB.Controllers
 {
@@ -22,7 +19,7 @@ namespace Arthes.WEB.Controllers
         // GET: Receitas
         public async Task<IActionResult> Index()
         {
-            var arthesContext = _context.Receita.Include(r => r.IdRevistaNavigation);
+            Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Receita, Revista>? arthesContext = _context.Receita.Include(r => r.IdRevistaNavigation);
             return View(await arthesContext.ToListAsync());
         }
 
@@ -34,15 +31,10 @@ namespace Arthes.WEB.Controllers
                 return NotFound();
             }
 
-            var receita = await _context.Receita
+            Receita? receita = await _context.Receita
                 .Include(r => r.IdRevistaNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (receita == null)
-            {
-                return NotFound();
-            }
-
-            return View(receita);
+            return receita == null ? NotFound() : View(receita);
         }
 
         // GET: Receitas/Create
@@ -61,8 +53,8 @@ namespace Arthes.WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(receita);
-                await _context.SaveChangesAsync();
+                _ = _context.Add(receita);
+                _ = await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdRevista"] = new SelectList(_context.Revista, "Id", "Id", receita.IdRevista);
@@ -77,7 +69,7 @@ namespace Arthes.WEB.Controllers
                 return NotFound();
             }
 
-            var receita = await _context.Receita.FindAsync(id);
+            Receita? receita = await _context.Receita.FindAsync(id);
             if (receita == null)
             {
                 return NotFound();
@@ -102,8 +94,8 @@ namespace Arthes.WEB.Controllers
             {
                 try
                 {
-                    _context.Update(receita);
-                    await _context.SaveChangesAsync();
+                    _ = _context.Update(receita);
+                    _ = await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -130,15 +122,10 @@ namespace Arthes.WEB.Controllers
                 return NotFound();
             }
 
-            var receita = await _context.Receita
+            Receita? receita = await _context.Receita
                 .Include(r => r.IdRevistaNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (receita == null)
-            {
-                return NotFound();
-            }
-
-            return View(receita);
+            return receita == null ? NotFound() : View(receita);
         }
 
         // POST: Receitas/Delete/5
@@ -150,19 +137,19 @@ namespace Arthes.WEB.Controllers
             {
                 return Problem("Entity set 'ArthesContext.Receita'  is null.");
             }
-            var receita = await _context.Receita.FindAsync(id);
+            Receita? receita = await _context.Receita.FindAsync(id);
             if (receita != null)
             {
-                _context.Receita.Remove(receita);
+                _ = _context.Receita.Remove(receita);
             }
-            
-            await _context.SaveChangesAsync();
+
+            _ = await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ReceitaExists(int id)
         {
-          return (_context.Receita?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Receita?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

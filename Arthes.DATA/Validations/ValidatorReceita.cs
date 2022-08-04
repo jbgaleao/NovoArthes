@@ -22,11 +22,7 @@ namespace Arthes.DATA.Validations
         private bool AlturaValida(string altura)
         {
             decimal altConvertida = Convert.ToDecimal(altura);
-            if (altConvertida >= 5.0m && altConvertida <= 50.0m)
-            {
-                return true;
-            }
-            else return false;
+            return altConvertida is >= 5.0m and <= 50.0m;
 
         }
     }
