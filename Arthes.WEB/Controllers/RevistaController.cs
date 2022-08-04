@@ -1,5 +1,6 @@
-﻿using Arthes.DATA.Models;
-using Arthes.DATA.Services;
+﻿using Arthes.DATA.Interfaces;
+using Arthes.DATA.Models;
+
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,11 +8,17 @@ namespace Arthes.WEB.Controllers
 {
     public class RevistaController : Controller
     {
-        private RevistaService oRevistaService = new RevistaService();
-
-        public IActionResult Index()
+        private readonly IRepositoryBase<Revista> _repository;
+        public RevistaController(IRepositoryBase<Revista> repository)
         {
-            List<Revista> oListaRevista = oRevistaService.oRepositoryRevista.GetAll();
+            _repository = repository;
+        }
+
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Revista>>> Index()
+        {
+            IEnumerable<Revista>? oListaRevista = await _repository.GetAll();
             return View(oListaRevista);
         }
 
@@ -22,10 +29,62 @@ namespace Arthes.WEB.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Revista rev)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Revista revista)
         {
-            oRevistaService.oRepositoryRevista.Insert(rev);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                await _repository.Insert(revista);
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            Revista revista = await _repository.GetById(id);
+
+            return revista == null ? NotFound() : View(revista);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            Revista revista = await _repository.GetById(id);
+            return View(revista);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _repository.Delete(id);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            Revista revista = await _repository.GetById(id);
+            return View(revista);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Revista revista)
+        {                
+            if (ModelState.IsValid)
+            {
+                await _repository.Update(revista);
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View( "Edit",revista);
         }
     }
 }

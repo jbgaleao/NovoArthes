@@ -4,17 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Arthes.DATA.Interfaces;
 using Arthes.DATA.Repositories;
 
 namespace Arthes.DATA.Services
 {
     public class RevistaService
     {
-        public RepositoryRevista oRepositoryRevista { get; set; }
+        public readonly IRepositoryRevista oRepositoryRevista;
 
-        public RevistaService()
+        public RevistaService(IRepositoryRevista repositoryRevista)
         {
-            oRepositoryRevista = new RepositoryRevista();
+            oRepositoryRevista = repositoryRevista;
         }
 
     }

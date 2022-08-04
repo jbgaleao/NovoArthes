@@ -1,32 +1,49 @@
+
+using System.Globalization;
+
+using Arthes.DATA.Data;
 using Arthes.DATA.Interfaces;
 using Arthes.DATA.Repositories;
+using Arthes.DATA.Validations;
 
-var builder = WebApplication.CreateBuilder(args);
+using FluentValidation;
+using FluentValidation.AspNetCore;
 
-builder.Services.AddTransient<IRepositoryRevista, RepositoryRevista>();
-builder.Services.AddTransient<IRepositoryReceita, RepositoryReceita>();
-builder.Services.AddTransient<IRepositoryLinhaReceita, RepositoryLinhaReceita>();
-builder.Services.AddControllersWithViews();
+using Microsoft.EntityFrameworkCore;
 
-var app = builder.Build();
+WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllersWithViews()
+    .AddFluentValidation(v =>
+    {
+        v.RegisterValidatorsFromAssemblyContaining<ValidatorRevista>();
+        v.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
+        
+    });
+
+    //ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("pt-BR");
+
+builder.Services.AddDbContext<ArthesContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ArthesConn")));
+
+builder.Services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+
+WebApplication? app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    _ = app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    _ = app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
-
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Revista}/{action=Index}/{id?}");
+        name: "default",
+        pattern: "{controller=Revista}/{action=Index}/{id?}"
+    );
 
 app.Run();

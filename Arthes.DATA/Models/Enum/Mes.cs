@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Arthes.DATA.Models.Enum
+﻿namespace Arthes.DATA.Models.Enum
 {
     public enum Mes : int
     {

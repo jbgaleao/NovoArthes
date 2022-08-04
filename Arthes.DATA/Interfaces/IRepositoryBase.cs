@@ -4,13 +4,12 @@ namespace Arthes.DATA.Interfaces
 {
     public interface IRepositoryBase<T> where T : class
     {
-        List<T> GetAll();
-        T GetById(params object[] variavel);
+        Task<IEnumerable<T>> GetAll();
+        Task<T> GetById(int? id);
+        Task Insert(T entity);
+        Task Update( T entity);
+        Task Delete(int? id);
 
-        T Insert(T entity);
-        T Update(T entity);
-        void Delete(T entity);
-        void Delete(params object[] variavel);
-        void SaveChanges();
+
     }
 }

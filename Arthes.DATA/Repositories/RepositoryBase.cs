@@ -1,5 +1,7 @@
 ﻿#nullable disable
 
+
+
 using Arthes.DATA.Data;
 using Arthes.DATA.Interfaces;
 
@@ -12,65 +14,45 @@ namespace Arthes.DATA.Repositories
         protected readonly ArthesContext _context;
         public bool _SaveChanges = true;
 
-        public RepositoryBase(bool saveChanges = true)
+        public RepositoryBase(ArthesContext context, bool saveChanges = true)
         {
             _SaveChanges = saveChanges;
-            _context = new ArthesContext();
+            _context = context;
         }
 
 
-        public List<T> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
-            return _context.Set<T>().ToList();
+            return await _context.Set<T>().AsNoTracking().ToListAsync();
         }
 
-        public T GetById(params object[] variavel)
+        public async Task<T> GetById(int? id)
         {
-            return _context.Set<T>().Find(variavel);
+            return await _context.Set<T>().FindAsync(id);
         }
 
-
-        public T Insert(T entity)
+        public async Task Insert(T entity)
         {
-            _ = _context.Set<T>().Add(entity);
-            if (_SaveChanges)
-                _ = _context.SaveChanges();
-            return entity;
+           await _context.Set<T>().AddAsync(entity);
+           await _context.SaveChangesAsync();
         }
 
-        public T Update(T entity)
+        public async Task Update(T entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
-            if (_SaveChanges)
-                _ = _context.SaveChanges();
-
-            return entity;
+            _context.Set<T>().Update(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(T entity)
+        public async Task Delete(int? id)
         {
-            _ = _context.Set<T>().Remove(entity);
-            if (_SaveChanges)
-                _ = _context.SaveChanges();
+            T entity = await GetById(id);
+            _context.Set<T>().Remove(entity);
+            await _context.SaveChangesAsync();
         }
-
-        public void Delete(params object[] variavel)
-        {
-            T entity = GetById(variavel);
-            Delete(entity);
-        }
-
-        public void SaveChanges()
-        {
-            _ = _context.SaveChanges();
-        }
-
 
         public void Dispose()
         {
             _context.Dispose();
         }
-
-
     }
 }
