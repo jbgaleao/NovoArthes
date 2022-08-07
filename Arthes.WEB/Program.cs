@@ -17,15 +17,20 @@ builder.Services.AddControllersWithViews()
     .AddFluentValidation(v =>
     {
         v.RegisterValidatorsFromAssemblyContaining<ValidatorRevista>();
-  //      v.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
+        v.RegisterValidatorsFromAssemblyContaining<ValidatorReceita>();
         
     });
 
-    //ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("pt-BR");
 
-builder.Services.AddDbContext<ArthesContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ArthesConn")));
+builder.Services.AddDbContext<ArthesContext>(options => options
+        .UseSqlServer(builder
+        .Configuration
+        .GetConnectionString("ArthesConn")));
 
-builder.Services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+builder.Services.AddTransient<IRepositoryRevista, RepositoryRevista>();
+builder.Services.AddTransient<IRepositoryReceita, RepositoryReceita>();
+builder.Services.AddTransient<IRepositoryLinhaReceita, RepositoryLinhaReceita>();
+
 
 WebApplication? app = builder.Build();
 
@@ -43,7 +48,7 @@ app.UseRouting();
 app.UseAuthorization();
 app.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Revista}/{action=Index}/{id?}"
+        pattern: "{controller=Receita}/{action=Index}/{id?}"
     );
 
 app.Run();

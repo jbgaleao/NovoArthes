@@ -21,13 +21,13 @@ namespace Arthes.DATA.Validations
 
         private bool AlturaValida(string altura)
         {
+            altura = altura.Replace(".", ",");
             decimal altConvertida = Convert.ToDecimal(altura);
+           
             if (altConvertida >= 5.0m && altConvertida <= 50.0m)
-            {
                 return true;
-            }
-            else return false;
-
+            else 
+                return false;
         }
     }
 }

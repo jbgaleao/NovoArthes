@@ -8,8 +8,8 @@ namespace Arthes.WEB.Controllers
 {
     public class RevistaController : Controller
     {
-        private readonly IRepositoryBase<Revista> _repository;
-        public RevistaController(IRepositoryBase<Revista> repository)
+        private readonly IRepositoryRevista _repository;
+        public RevistaController(IRepositoryRevista repository)
         {
             _repository = repository;
         }
@@ -41,16 +41,7 @@ namespace Arthes.WEB.Controllers
             return View("Index");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-                return NotFound();
-
-            Revista revista = await _repository.GetById(id);
-
-            return revista == null ? NotFound() : View(revista);
-        }
+       
 
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)

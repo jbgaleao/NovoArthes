@@ -1,7 +1,4 @@
-﻿#nullable disable
-
-
-
+﻿
 using Arthes.DATA.Data;
 using Arthes.DATA.Interfaces;
 
@@ -21,38 +18,13 @@ namespace Arthes.DATA.Repositories
         }
 
 
-        public async Task<IEnumerable<T>> GetAll()
-        {
-            return await _context.Set<T>().AsNoTracking().ToListAsync();
-        }
+ 
 
-        public async Task<T> GetById(int? id)
-        {
-            return await _context.Set<T>().FindAsync(id);
-        }
 
-        public async Task Insert(T entity)
-        {
-            _ = await _context.Set<T>().AddAsync(entity);
-            _ = await _context.SaveChangesAsync();
-        }
 
-        public async Task Update(T entity)
+        public Task<Include<T>> GetAllWithRevista()
         {
-            _ = _context.Set<T>().Update(entity);
-            _ = await _context.SaveChangesAsync();
-        }
 
-        public async Task Delete(int? id)
-        {
-            T entity = await GetById(id);
-            _ = _context.Set<T>().Remove(entity);
-            _ = await _context.SaveChangesAsync();
-        }
-
-        public void Dispose()
-        {
-            _context.Dispose();
         }
     }
 }

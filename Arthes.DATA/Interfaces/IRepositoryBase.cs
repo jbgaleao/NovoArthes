@@ -5,6 +5,7 @@ namespace Arthes.DATA.Interfaces
     public interface IRepositoryBase<T> where T : class
     {
         Task<IEnumerable<T>> GetAll();
+        Task<IEnumerable<T>> GetAllWithRevista();
         Task<T> GetById(int? id);
         Task Insert(T entity);
         Task Update( T entity);
