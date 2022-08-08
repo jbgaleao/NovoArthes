@@ -5,7 +5,7 @@ using Arthes.DATA.Models;
 
 namespace Arthes.DATA.Repositories
 {
-    public class RepositoryReceita : RepositoryBase<Receita>, IRepositoryReceita
+    public class RepositoryReceita : RepositoryBase<NovaReceitaViewModel>, IRepositoryReceita
     {
         public RepositoryReceita(ArthesContext context, bool SaveChanges = true) : base(context, SaveChanges)
         {

@@ -4,13 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
+using Arthes.DATA.Models.Enum;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace Arthes.DATA.Models
 {
-    public partial class Receita
+    public partial class NovaReceitaViewModel
     {
-        public Receita()
+        public NovaReceitaViewModel()
         {
             LinhaReceita = new HashSet<LinhaReceita>();
         }
@@ -20,8 +23,8 @@ namespace Arthes.DATA.Models
 
         public string Nome { get; set; }
 
-        public string Altura { get; set; }
-        public int NivelDificuldade { get; set; }
+        public int Altura { get; set; }
+        public NivelDificuldade NivelDificuldade { get; set; }
         public int IdRevista { get; set; }
 
         [ForeignKey("IdRevista")]

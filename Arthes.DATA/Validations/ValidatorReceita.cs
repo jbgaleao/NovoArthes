@@ -5,9 +5,9 @@ using FluentValidation;
 
 namespace Arthes.DATA.Validations
 {
-    public class ValidatorReceita : AbstractValidator<Receita>
+    public class ValidatorNovaReceitaViewModel : AbstractValidator<NovaReceitaViewModel>
     {
-        public ValidatorReceita()
+        public ValidatorNovaReceitaViewModel()
         {
 
             _ = RuleFor(r => r.Nome).NotEmpty().WithMessage("Campo obrigatório");
@@ -16,18 +16,7 @@ namespace Arthes.DATA.Validations
 
             _ = RuleFor(r => r.Altura).NotEmpty().WithMessage("Campo obrigatório");
             _ = RuleFor(r => r.Altura).NotNull().WithMessage("Campo obrigatório");
-            _ = RuleFor(r => r.Altura).Must(AlturaValida).WithMessage("Altura inválida");
-        }
-
-        private bool AlturaValida(string altura)
-        {
-            decimal altConvertida = Convert.ToDecimal(altura);
-            if (altConvertida >= 5.0m && altConvertida <= 50.0m)
-            {
-                return true;
-            }
-            else return false;
-
+            _ = RuleFor(r => r.Altura).InclusiveBetween(5,50).WithMessage("Altura inválida");
         }
     }
 }

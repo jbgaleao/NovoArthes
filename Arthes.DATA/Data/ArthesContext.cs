@@ -23,7 +23,7 @@ namespace Arthes.DATA.Data
         public virtual DbSet<Fabricante> Fabricante { get; set; }
         public virtual DbSet<Linha> Linha { get; set; }
         public virtual DbSet<LinhaReceita> LinhaReceita { get; set; }
-        public virtual DbSet<Receita> Receita { get; set; }
+        public virtual DbSet<NovaReceitaViewModel> Receita { get; set; }
         public virtual DbSet<Revista> Revista { get; set; }
         public virtual DbSet<TipoLinha> TipoLinha { get; set; }
 
@@ -73,7 +73,7 @@ namespace Arthes.DATA.Data
                     .HasConstraintName("FK_LinhaReceita_Receita");
             });
 
-            modelBuilder.Entity<Receita>(entity =>
+            modelBuilder.Entity<NovaReceitaViewModel>(entity =>
             {
                 entity.HasOne(d => d.IdRevistaNavigation)
                     .WithMany(p => p.Receita)

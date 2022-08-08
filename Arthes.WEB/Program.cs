@@ -16,12 +16,8 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews()
     .AddFluentValidation(v =>
     {
-        v.RegisterValidatorsFromAssemblyContaining<ValidatorRevista>();
-  //      v.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
-        
+        v.RegisterValidatorsFromAssemblyContaining<ValidatorRevista>();        
     });
-
-    //ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("pt-BR");
 
 builder.Services.AddDbContext<ArthesContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ArthesConn")));
 
