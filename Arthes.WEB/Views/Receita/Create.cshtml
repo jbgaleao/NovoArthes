@@ -1,0 +1,109 @@
+﻿@using Arthes.DATA.Models.Enum
+@model Arthes.WEB.Models.NovaReceitaViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Receita</h4>
+<hr />
+<div class="row">
+    <div class="col-md">
+        <form asp-action="Create">
+            @Html.HiddenFor(model => model.IdRevista, new { @id="hdRevista" })
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-8">
+                    <label asp-for="Nome" class="control-label"></label>
+                    <input asp-for="Nome" class="form-control" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="Altura" class="control-label"></label>
+                    <input asp-for="Altura" class="form-control" />
+                    <span asp-validation-for="Altura" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="NivelDificuldade" class="control-label"></label>
+                    <select asp-for="NivelDificuldade" asp-items="Html.GetEnumSelectList<NivelDificuldade>()" class="form-control"></select>
+                    <span asp-validation-for="NivelDificuldade" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group col-md mt-5">
+                <table id="RevistaReceita" class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Revista.Tema)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Revista.MesEdicao)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Revista.AnoEdicao)
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.listaRevista)
+                        {
+                            <tr onclick="passIdRevista(@item.Id);">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Tema)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MesEdicao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AnoEdicao)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function() {
+            var RevistaReceita = $('#RevistaReceita').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.12.1/i18n/pt-BR.json"
+                }
+            });
+
+            $('#RevistaReceita tbody').on('click', 'tr', function() {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                } else {
+                    RevistaReceita.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+        });
+
+        function passIdRevista(idRevista) {
+            console.log(idRevista);
+            document.getElementById('hdRevista').value = idRevista;
+        }
+    </script>
+}

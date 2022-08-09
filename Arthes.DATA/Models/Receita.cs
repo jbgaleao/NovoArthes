@@ -11,9 +11,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Arthes.DATA.Models
 {
-    public partial class NovaReceitaViewModel
+    public partial class Receita
     {
-        public NovaReceitaViewModel()
+        public Receita()
         {
             LinhaReceita = new HashSet<LinhaReceita>();
         }

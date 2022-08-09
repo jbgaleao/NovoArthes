@@ -21,6 +21,6 @@ namespace Arthes.DATA.Models
 
         [ForeignKey("ReceitaId")]
         [InverseProperty("LinhaReceita")]
-        public virtual NovaReceitaViewModel Receita { get; set; }
+        public virtual Receita Receita { get; set; }
     }
 }

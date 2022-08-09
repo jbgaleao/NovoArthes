@@ -21,33 +21,33 @@ namespace Arthes.DATA.Repositories
         }
 
 
-        public async Task<IEnumerable<T>> GetAll()
+        public IEnumerable<T> GetAll()
         {
-            return await _context.Set<T>().AsNoTracking().ToListAsync();
+            return  _context.Set<T>().AsNoTracking().ToList();
         }
 
-        public async Task<T> GetById(int? id)
+        public T GetById(int? id)
         {
-            return await _context.Set<T>().FindAsync(id);
+            return  _context.Set<T>().Find(id);
         }
 
-        public async Task Insert(T entity)
+        public void Insert(T entity)
         {
-            _ = await _context.Set<T>().AddAsync(entity);
-            _ = await _context.SaveChangesAsync();
+            _ = _context.Set<T>().Add(entity);
+            _ = _context.SaveChanges();
         }
 
-        public async Task Update(T entity)
+        public void Update(T entity)
         {
             _ = _context.Set<T>().Update(entity);
-            _ = await _context.SaveChangesAsync();
+            _ = _context.SaveChanges();
         }
 
-        public async Task Delete(int? id)
+        public void Delete(int? id)
         {
-            T entity = await GetById(id);
+            T entity =  GetById(id);
             _ = _context.Set<T>().Remove(entity);
-            _ = await _context.SaveChangesAsync();
+            _ = _context.SaveChangesAsync();
         }
 
         public void Dispose()

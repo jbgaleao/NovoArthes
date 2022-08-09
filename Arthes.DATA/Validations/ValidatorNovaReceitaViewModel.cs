@@ -1,11 +1,11 @@
 ﻿
-using Arthes.DATA.Models;
+
 
 using FluentValidation;
 
 namespace Arthes.DATA.Validations
 {
-    public class ValidatorNovaReceitaViewModel : AbstractValidator<NovaReceitaViewModel>
+    public class ValidatorNovaReceitaViewModel : AbstractValidator<Models.Receita>
     {
         public ValidatorNovaReceitaViewModel()
         {

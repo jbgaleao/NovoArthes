@@ -1,14 +1,15 @@
 ﻿using Arthes.WEB.Models;
+using Arthes.DATA.Models;
 
 using AutoMapper;
 
-namespace Arthes.WEB.Mapping
+namespace Arthes.MAPPING.Mapping
 {
     public class NovaReceitaMappingProfile:Profile
     {
         public NovaReceitaMappingProfile()
         {
-            CreateMap<NovaReceitaViewModel, DATA.Models.>
+            CreateMap<NovaReceitaViewModel, Receita>();
         }
     }
 }

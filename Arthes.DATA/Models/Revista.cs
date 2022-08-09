@@ -13,20 +13,25 @@ namespace Arthes.DATA.Models
 {
     public partial class Revista
     {
+
         public Revista()
         {
-            Receita = new HashSet<NovaReceitaViewModel>();
+            Receita = new HashSet<Receita>();
         }
+
 
         [Key]
         public int Id { get; set; }
 
         public string Tema { get; set; }
+
         public int NumEdicao { get; set; }
+
         public Mes MesEdicao { get; set; }
+
         public int AnoEdicao { get; set; }
 
         [InverseProperty("IdRevistaNavigation")]
-        public virtual ICollection<NovaReceitaViewModel> Receita { get; set; }
+        public virtual ICollection<Receita> Receita { get; set; }
     }
 }

@@ -1,12 +1,10 @@
 
-using System.Globalization;
-
 using Arthes.DATA.Data;
 using Arthes.DATA.Interfaces;
 using Arthes.DATA.Repositories;
 using Arthes.DATA.Validations;
+using Arthes.WEB.Models;
 
-using FluentValidation;
 using FluentValidation.AspNetCore;
 
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +18,7 @@ builder.Services.AddControllersWithViews()
     });
 
 builder.Services.AddDbContext<ArthesContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ArthesConn")));
-
+builder.Services.AddAutoMapper(typeof(NovaReceitaViewModel));
 builder.Services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
 
 WebApplication? app = builder.Build();
@@ -39,7 +37,7 @@ app.UseRouting();
 app.UseAuthorization();
 app.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Revista}/{action=Index}/{id?}"
+        pattern: "{controller=Receita}/{action=Index}/{id?}"
     );
 
 app.Run();
