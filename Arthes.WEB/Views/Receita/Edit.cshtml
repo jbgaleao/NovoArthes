@@ -2,18 +2,19 @@
 @model Arthes.WEB.Models.ReceitaVM
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edição";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Edição</h1>
 
 <h4>Receita</h4>
 <hr />
 <div class="row">
     <div class="col-md">
-        <form asp-action="Create">
-            @Html.HiddenFor(model => model.IdRevista, new { @id="hdRevista" })
+        <form asp-action="Edit">
+            @Html.HiddenFor(model => model.Id, new { @id="hdReceita" })
+            @Html.HiddenFor(model => model.Revista.Id, new { @id="hdRevista" })
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row">
                 <div class="col-md-8">
@@ -37,6 +38,9 @@
                     <thead>
                         <tr>
                             <th>
+                                @Html.DisplayNameFor(model => model.Revista.Id)
+                            </th>
+                            <th>
                                 @Html.DisplayNameFor(model => model.Revista.Tema)
                             </th>
                             <th>
@@ -53,6 +57,9 @@
                         {
                             <tr onclick="passIdRevista(@item.Id);">
                                 <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
                                     @Html.DisplayFor(modelItem => item.Tema)
                                 </td>
                                 <td>
@@ -68,7 +75,7 @@
             </div>
             <hr />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Edit" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -84,14 +91,14 @@
     }
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var RevistaReceita = $('#RevistaReceita').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.12.1/i18n/pt-BR.json"
                 }
             });
 
-            $('#RevistaReceita tbody').on('click', 'tr', function() {
+            $('#RevistaReceita tbody').on('click', 'tr', function () {
                 if ($(this).hasClass('selected')) {
                     $(this).removeClass('selected');
                 } else {
@@ -99,10 +106,13 @@
                     $(this).addClass('selected');
                 }
             });
+
+            $('#RevistaReceita tbody tr td').filter(":contains('" + @Model.IdRevista + "')")[0].parentElement.setAttribute('class', 'selected');
         });
 
         function passIdRevista(idRevista) {
             console.log(idRevista);
+            document.getElementById('hdReceita').value = id;
             document.getElementById('hdRevista').value = idRevista;
         }
     </script>

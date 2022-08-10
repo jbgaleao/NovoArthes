@@ -17,6 +17,7 @@ namespace Arthes.WEB.Models
 
         }
 
+        public int Id { get; set; }
         public string Nome { get; set; }
         public int Altura { get; set; }
         public NivelDificuldade NivelDificuldade { get; set; }

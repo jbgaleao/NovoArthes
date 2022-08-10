@@ -95,6 +95,7 @@ namespace Arthes.WEB.Controllers
             IEnumerable<Revista> oListaRevista = _repositoryRevista.GetAll();
             ReceitaVM rvm = new()
             {
+                Id = receita.Id,
                 Altura = receita.Altura,
                 NivelDificuldade = receita.NivelDificuldade,
                 Nome = receita.Nome,
@@ -118,10 +119,10 @@ namespace Arthes.WEB.Controllers
                     Altura = NovaReceita.Altura,
                     NivelDificuldade = NovaReceita.NivelDificuldade,
                     Nome = NovaReceita.Nome,
-                    IdRevista = NovaReceita.IdRevista,
+                    IdRevista = NovaReceita.Revista.Id,
                     IdRevistaNavigation = revista
                 };
-                _repository.Insert(receita);
+                _repository.Update(receita);
                 return RedirectToAction(nameof(Index));
             }
             return View("Index");
