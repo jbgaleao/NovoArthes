@@ -45,7 +45,9 @@ namespace Arthes.WEB.Controllers
         public IActionResult Details(int? id)
         {
             if (id == null)
+            {
                 return NotFound();
+            }
 
             Revista revista = _repository.GetById(id);
 
@@ -63,7 +65,7 @@ namespace Arthes.WEB.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
-             _repository.Delete(id);
+            _repository.Delete(id);
             return RedirectToAction(nameof(Index));
         }
 
@@ -77,14 +79,14 @@ namespace Arthes.WEB.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Revista revista)
-        {                
+        {
             if (ModelState.IsValid)
             {
-                 _repository.Update(revista);
+                _repository.Update(revista);
                 return RedirectToAction(nameof(Index));
             }
 
-            return View( "Edit",revista);
+            return View("Edit", revista);
         }
     }
 }

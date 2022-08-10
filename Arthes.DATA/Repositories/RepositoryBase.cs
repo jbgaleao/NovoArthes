@@ -1,7 +1,5 @@
 ﻿#nullable disable
 
-
-
 using Arthes.DATA.Data;
 using Arthes.DATA.Interfaces;
 
@@ -23,12 +21,12 @@ namespace Arthes.DATA.Repositories
 
         public IEnumerable<T> GetAll()
         {
-            return  _context.Set<T>().AsNoTracking().ToList();
+            return _context.Set<T>().AsNoTracking().ToList();
         }
 
         public T GetById(int? id)
         {
-            return  _context.Set<T>().Find(id);
+            return _context.Set<T>().Find(id);
         }
 
         public void Insert(T entity)
@@ -45,7 +43,7 @@ namespace Arthes.DATA.Repositories
 
         public void Delete(int? id)
         {
-            T entity =  GetById(id);
+            T entity = GetById(id);
             _ = _context.Set<T>().Remove(entity);
             _ = _context.SaveChangesAsync();
         }

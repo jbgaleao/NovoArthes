@@ -5,14 +5,14 @@ using Arthes.DATA.Models.Enum;
 
 namespace Arthes.WEB.Models
 {
-    public class NovaReceitaViewModel
+    public class ReceitaVM
     {
-        public NovaReceitaViewModel(IEnumerable<Revista> listaRevista)
+        public ReceitaVM(IEnumerable<Revista> listaRevista)
         {
             this.listaRevista = listaRevista;
         }
 
-        public NovaReceitaViewModel()
+        public ReceitaVM()
         {
 
         }

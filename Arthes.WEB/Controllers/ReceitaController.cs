@@ -2,7 +2,6 @@
 
 using Arthes.DATA.Interfaces;
 using Arthes.DATA.Models;
-using Arthes.DATA.Models.Enum;
 using Arthes.DATA.Repositories;
 using Arthes.WEB.Models;
 
@@ -24,7 +23,6 @@ namespace Arthes.WEB.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Receita>> Index()
         {
-            //RepositoryReceita repositoryReceita = new(null, true);
             IEnumerable<Receita> oListaReceita = RepositoryReceita.GetAllWithDetails();
             return View(oListaReceita);
         }
@@ -34,13 +32,13 @@ namespace Arthes.WEB.Controllers
         public IActionResult Create()
         {
             IEnumerable<Revista> oListaRevista = _repositoryRevista.GetAll();
-            NovaReceitaViewModel oNovaReceita = new NovaReceitaViewModel(oListaRevista);
+            ReceitaVM oNovaReceita = new(oListaRevista);
             return View(oNovaReceita);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(NovaReceitaViewModel NovaReceita)
+        public IActionResult Create(ReceitaVM NovaReceita)
         {
             if (ModelState.IsValid)
             {
@@ -48,7 +46,7 @@ namespace Arthes.WEB.Controllers
                 Receita receita = new()
                 {
                     Altura = NovaReceita.Altura,
-                    NivelDificuldade = (NivelDificuldade)NovaReceita.NivelDificuldade,
+                    NivelDificuldade = NovaReceita.NivelDificuldade,
                     Nome = NovaReceita.Nome,
                     IdRevista = NovaReceita.IdRevista,
                     IdRevistaNavigation = revista
@@ -59,5 +57,74 @@ namespace Arthes.WEB.Controllers
             return View("Index");
         }
 
+
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Receita Receita = RepositoryReceita.GetWithDetails((int)id);
+            return View(Receita);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            _repository.Delete(id);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Receita Receita = RepositoryReceita.GetWithDetails((int)id);
+            return View(Receita);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            Receita receita = RepositoryReceita.GetWithDetails((int)id);
+            IEnumerable<Revista> oListaRevista = _repositoryRevista.GetAll();
+            ReceitaVM rvm = new()
+            {
+                Altura = receita.Altura,
+                NivelDificuldade = receita.NivelDificuldade,
+                Nome = receita.Nome,
+                IdRevista = receita.IdRevista,
+                Revista = receita.IdRevistaNavigation,
+                listaRevista = oListaRevista
+            };
+            return View(rvm);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(ReceitaVM NovaReceita)
+        {
+            if (ModelState.IsValid)
+            {
+                Revista revista = _repositoryRevista.GetById(NovaReceita.IdRevista);
+                Receita receita = new()
+                {
+                    Altura = NovaReceita.Altura,
+                    NivelDificuldade = NovaReceita.NivelDificuldade,
+                    Nome = NovaReceita.Nome,
+                    IdRevista = NovaReceita.IdRevista,
+                    IdRevistaNavigation = revista
+                };
+                _repository.Insert(receita);
+                return RedirectToAction(nameof(Index));
+            }
+            return View("Index");
+        }
     }
 }

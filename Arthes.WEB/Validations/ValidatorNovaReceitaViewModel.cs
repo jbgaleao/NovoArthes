@@ -3,9 +3,9 @@
 
 using FluentValidation;
 
-namespace Arthes.DATA.Validations
+namespace Arthes.WEB.Validations
 {
-    public class ValidatorNovaReceitaViewModel : AbstractValidator<Models.Receita>
+    public class ValidatorNovaReceitaViewModel : AbstractValidator<Models.ReceitaVM>
     {
         public ValidatorNovaReceitaViewModel()
         {
@@ -16,7 +16,7 @@ namespace Arthes.DATA.Validations
 
             _ = RuleFor(r => r.Altura).NotEmpty().WithMessage("Campo obrigatório");
             _ = RuleFor(r => r.Altura).NotNull().WithMessage("Campo obrigatório");
-            _ = RuleFor(r => r.Altura).InclusiveBetween(5,50).WithMessage("Altura inválida");
+            _ = RuleFor(r => r.Altura).InclusiveBetween(5, 50).WithMessage("Altura inválida");
         }
     }
 }

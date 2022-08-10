@@ -9,6 +9,7 @@ namespace Arthes.DATA.Repositories
 {
     public class RepositoryReceita : RepositoryBase<Receita>, IRepositoryReceita
     {
+        private static readonly ArthesContext context = new();
 
         public RepositoryReceita(ArthesContext context, bool SaveChanges = true) : base(context, SaveChanges)
         {
@@ -16,12 +17,16 @@ namespace Arthes.DATA.Repositories
 
         public static List<Receita> GetAllWithDetails()
         {
-            using (ArthesContext context = new ArthesContext())
-            {
-                return context.Receita
-                      .Include(a => a.IdRevistaNavigation)
-                      .ToList<Receita>();
-            }
+            return context.Receita
+                  .Include(a => a.IdRevistaNavigation)
+                  .ToList<Receita>();
+        }
+        public static Receita GetWithDetails(int id)
+        {
+            return context.Receita
+                  .Include(a => a.IdRevistaNavigation)
+                  .Where(a => a.Id == id)
+                  .FirstOrDefault<Receita>();
         }
 
     }

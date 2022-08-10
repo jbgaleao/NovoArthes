@@ -1,24 +1,28 @@
-
+#nullable enable
 using Arthes.DATA.Data;
 using Arthes.DATA.Interfaces;
 using Arthes.DATA.Repositories;
-using Arthes.DATA.Validations;
-using Arthes.WEB.Models;
+using Arthes.WEB.Validations;
 
 using FluentValidation.AspNetCore;
 
 using Microsoft.EntityFrameworkCore;
 
+using ReceitaVM = Arthes.WEB.Models.ReceitaVM;
+
+
+
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
+
 
 builder.Services.AddControllersWithViews()
     .AddFluentValidation(v =>
     {
-        v.RegisterValidatorsFromAssemblyContaining<ValidatorRevista>();        
+        _ = v.RegisterValidatorsFromAssemblyContaining<ValidatorRevista>();
     });
 
 builder.Services.AddDbContext<ArthesContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ArthesConn")));
-builder.Services.AddAutoMapper(typeof(NovaReceitaViewModel));
+builder.Services.AddAutoMapper(typeof(ReceitaVM));
 builder.Services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
 
 WebApplication? app = builder.Build();
@@ -37,7 +41,7 @@ app.UseRouting();
 app.UseAuthorization();
 app.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Receita}/{action=Index}/{id?}"
+        pattern: "{controller=Receita}/{action=Create}/{id?}"
     );
 
 app.Run();
