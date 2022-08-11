@@ -48,10 +48,7 @@
                     @Html.DisplayFor(modelItem => item.NivelDificuldade)
                 </td>
                 <td>
-                    <a href="#">
-                        @Html.DisplayFor(modelItem => item.IdRevistaNavigation.Tema)
-                    </a>
-
+                    @Html.ActionLink(@item.IdRevistaNavigation.Tema,"Details","Revista", new { id= @item.IdRevistaNavigation.Id} )
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IdRevistaNavigation.MesEdicao)

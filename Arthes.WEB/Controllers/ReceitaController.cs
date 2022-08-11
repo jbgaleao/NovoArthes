@@ -113,9 +113,10 @@ namespace Arthes.WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                Revista revista = _repositoryRevista.GetById(NovaReceita.IdRevista);
+                Revista revista = _repositoryRevista.GetById(NovaReceita.Revista.Id);
                 Receita receita = new()
                 {
+                    Id = NovaReceita.Id,
                     Altura = NovaReceita.Altura,
                     NivelDificuldade = NovaReceita.NivelDificuldade,
                     Nome = NovaReceita.Nome,
@@ -123,7 +124,8 @@ namespace Arthes.WEB.Controllers
                     IdRevistaNavigation = revista
                 };
                 _repository.Update(receita);
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
             return View("Index");
         }

@@ -19,12 +19,14 @@ namespace Arthes.DATA.Repositories
         {
             return context.Receita
                   .Include(a => a.IdRevistaNavigation)
+                  .AsNoTracking()
                   .ToList<Receita>();
         }
         public static Receita GetWithDetails(int id)
         {
             return context.Receita
                   .Include(a => a.IdRevistaNavigation)
+                  .AsNoTracking()
                   .Where(a => a.Id == id)
                   .FirstOrDefault<Receita>();
         }

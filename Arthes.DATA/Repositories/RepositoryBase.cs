@@ -45,7 +45,7 @@ namespace Arthes.DATA.Repositories
         {
             T entity = GetById(id);
             _ = _context.Set<T>().Remove(entity);
-            _ = _context.SaveChangesAsync();
+            _ = _context.SaveChanges();
         }
 
         public void Dispose()
