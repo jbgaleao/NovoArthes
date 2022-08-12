@@ -40,6 +40,12 @@ namespace Arthes.WEB.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(ReceitaVM NovaReceita)
         {
+            if (!ValidaRevista(NovaReceita.IdRevista))
+            {
+                NovaReceita.listaRevista = _repositoryRevista.GetAll();
+                return View("Create", NovaReceita);
+            }
+
             if (ModelState.IsValid)
             {
                 Revista revista = _repositoryRevista.GetById(NovaReceita.IdRevista);
@@ -56,6 +62,7 @@ namespace Arthes.WEB.Controllers
             }
             return View("Index");
         }
+
 
 
         [HttpGet]
@@ -111,6 +118,12 @@ namespace Arthes.WEB.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(ReceitaVM NovaReceita)
         {
+            if (!ValidaRevista(NovaReceita.Revista.Id))
+            {
+                NovaReceita.listaRevista = _repositoryRevista.GetAll();
+                return View("Edit", NovaReceita);
+            }
+
             if (ModelState.IsValid)
             {
                 Revista revista = _repositoryRevista.GetById(NovaReceita.Revista.Id);
@@ -129,5 +142,20 @@ namespace Arthes.WEB.Controllers
             }
             return View("Index");
         }
+
+        //  ************************************************************************
+        private bool ValidaRevista(int Id)
+        {
+            if (Id == 0 || Id.Equals(null))
+            {
+                ModelState.AddModelError("Id", "Selecione uma Revista");
+            }
+
+            return ModelState.IsValid; ;
+        }
+
+
+
     }
 }
+

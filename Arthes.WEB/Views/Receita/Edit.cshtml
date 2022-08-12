@@ -32,6 +32,7 @@
                     <select asp-for="NivelDificuldade" asp-items="Html.GetEnumSelectList<NivelDificuldade>()" class="form-control"></select>
                     <span asp-validation-for="NivelDificuldade" class="text-danger"></span>
                 </div>
+
             </div>
             <div class="form-group col-md mt-5">
                 <table id="RevistaReceita" class="table">
@@ -72,6 +73,7 @@
                         }
                     </tbody>
                 </table>
+                @Html.ValidationMessageFor( x => x.IdRevista, "", new { @id = "Error", @class = "text-danger" } )
             </div>
             <hr />
             <div class="form-group">
@@ -112,7 +114,6 @@
 
         function passIdRevista(idRevista) {
             debugger;
-            console.log(idRevista);
             document.getElementById('hdReceita').value = @Model.Id
             document.getElementById('hdRevista').value = idRevista;
         }

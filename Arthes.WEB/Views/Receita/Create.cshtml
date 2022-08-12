@@ -65,6 +65,7 @@
                         }
                     </tbody>
                 </table>
+                @Html.ValidationMessageFor( x => x.Id, "", new { @id = "Error", @class = "text-danger" } )
             </div>
             <hr />
             <div class="form-group">
@@ -82,28 +83,5 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-
-    <script>
-        $(document).ready(function() {
-            var RevistaReceita = $('#RevistaReceita').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.12.1/i18n/pt-BR.json"
-                }
-            });
-
-            $('#RevistaReceita tbody').on('click', 'tr', function() {
-                if ($(this).hasClass('selected')) {
-                    $(this).removeClass('selected');
-                } else {
-                    RevistaReceita.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected');
-                }
-            });
-        });
-
-        function passIdRevista(idRevista) {
-            console.log(idRevista);
-            document.getElementById('hdRevista').value = idRevista;
-        }
-    </script>
+    <script src="~/js/CreateReceitaVM.js" type="text/javascript"></script>
 }
