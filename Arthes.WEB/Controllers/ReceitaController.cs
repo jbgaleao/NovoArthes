@@ -20,6 +20,7 @@ namespace Arthes.WEB.Controllers
             _repositoryRevista = repositoryRevista;
         }
 
+
         [HttpGet]
         public ActionResult<IEnumerable<Receita>> Index()
         {
@@ -35,6 +36,7 @@ namespace Arthes.WEB.Controllers
             ReceitaVM oNovaReceita = new(oListaRevista);
             return View(oNovaReceita);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -64,7 +66,6 @@ namespace Arthes.WEB.Controllers
         }
 
 
-
         [HttpGet]
         public IActionResult Delete(int? id)
         {
@@ -76,6 +77,7 @@ namespace Arthes.WEB.Controllers
             return View(Receita);
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
@@ -83,6 +85,7 @@ namespace Arthes.WEB.Controllers
             _repository.Delete(id);
             return RedirectToAction(nameof(Index));
         }
+
 
         [HttpGet]
         public IActionResult Details(int? id)
@@ -94,6 +97,7 @@ namespace Arthes.WEB.Controllers
             Receita Receita = RepositoryReceita.GetWithDetails((int)id);
             return View(Receita);
         }
+
 
         [HttpGet]
         public IActionResult Edit(int? id)
@@ -113,6 +117,7 @@ namespace Arthes.WEB.Controllers
             return View(rvm);
 
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -137,7 +142,6 @@ namespace Arthes.WEB.Controllers
                     IdRevistaNavigation = revista
                 };
                 _repository.Update(receita);
-                //return RedirectToAction(nameof(Index));
                 return RedirectToAction("Index");
             }
             return View("Index");

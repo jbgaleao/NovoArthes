@@ -7,15 +7,16 @@ namespace Arthes.WEB.Models
 {
     public class ReceitaVM
     {
+        public ReceitaVM()
+        {
+
+        }
+       
         public ReceitaVM(IEnumerable<Revista> listaRevista)
         {
             this.listaRevista = listaRevista;
         }
 
-        public ReceitaVM()
-        {
-
-        }
 
         public int Id { get; set; }
         public string Nome { get; set; }

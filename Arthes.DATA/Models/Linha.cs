@@ -26,9 +26,11 @@ namespace Arthes.DATA.Models
         [ForeignKey("FabricanteId")]
         [InverseProperty("Linha")]
         public virtual Fabricante Fabricante { get; set; }
+
         [ForeignKey("TipoLinhaId")]
         [InverseProperty("Linha")]
         public virtual TipoLinha TipoLinha { get; set; }
+
         [InverseProperty("Linha")]
         public virtual ICollection<LinhaReceita> LinhaReceita { get; set; }
     }
