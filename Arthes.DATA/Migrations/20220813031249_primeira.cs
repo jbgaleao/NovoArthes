@@ -4,23 +4,24 @@
 
 namespace Arthes.DATA.Migrations
 {
-    public partial class AlteracaoClasseReceita : Migration
+    public partial class primeira : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            _ = migrationBuilder.CreateTable(
+            migrationBuilder.CreateTable(
                 name: "Fabricante",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    _ = table.PrimaryKey("PK_Fabricante", x => x.Id);
+                    table.PrimaryKey("PK_Fabricante", x => x.Id);
                 });
 
-            _ = migrationBuilder.CreateTable(
+            migrationBuilder.CreateTable(
                 name: "Revista",
                 columns: table => new
                 {
@@ -33,10 +34,10 @@ namespace Arthes.DATA.Migrations
                 },
                 constraints: table =>
                 {
-                    _ = table.PrimaryKey("PK_Revista", x => x.Id);
+                    table.PrimaryKey("PK_Revista", x => x.Id);
                 });
 
-            _ = migrationBuilder.CreateTable(
+            migrationBuilder.CreateTable(
                 name: "TipoLinha",
                 columns: table => new
                 {
@@ -46,10 +47,10 @@ namespace Arthes.DATA.Migrations
                 },
                 constraints: table =>
                 {
-                    _ = table.PrimaryKey("PK_TipoLinha", x => x.Id);
+                    table.PrimaryKey("PK_TipoLinha", x => x.Id);
                 });
 
-            _ = migrationBuilder.CreateTable(
+            migrationBuilder.CreateTable(
                 name: "Receita",
                 columns: table => new
                 {
@@ -62,15 +63,15 @@ namespace Arthes.DATA.Migrations
                 },
                 constraints: table =>
                 {
-                    _ = table.PrimaryKey("PK_Receita", x => x.Id);
-                    _ = table.ForeignKey(
+                    table.PrimaryKey("PK_Receita", x => x.Id);
+                    table.ForeignKey(
                         name: "FK_Receita_Revista",
                         column: x => x.IdRevista,
                         principalTable: "Revista",
                         principalColumn: "Id");
                 });
 
-            _ = migrationBuilder.CreateTable(
+            migrationBuilder.CreateTable(
                 name: "Linha",
                 columns: table => new
                 {
@@ -83,20 +84,20 @@ namespace Arthes.DATA.Migrations
                 },
                 constraints: table =>
                 {
-                    _ = table.PrimaryKey("PK_Linha", x => x.Id);
-                    _ = table.ForeignKey(
+                    table.PrimaryKey("PK_Linha", x => x.Id);
+                    table.ForeignKey(
                         name: "FK_Linha_Fabricante",
                         column: x => x.FabricanteId,
                         principalTable: "Fabricante",
                         principalColumn: "Id");
-                    _ = table.ForeignKey(
+                    table.ForeignKey(
                         name: "FK_Linha_TipoLinha",
                         column: x => x.TipoLinhaId,
                         principalTable: "TipoLinha",
                         principalColumn: "Id");
                 });
 
-            _ = migrationBuilder.CreateTable(
+            migrationBuilder.CreateTable(
                 name: "LinhaReceita",
                 columns: table => new
                 {
@@ -107,40 +108,40 @@ namespace Arthes.DATA.Migrations
                 },
                 constraints: table =>
                 {
-                    _ = table.PrimaryKey("PK_LinhaReceita", x => x.Id);
-                    _ = table.ForeignKey(
+                    table.PrimaryKey("PK_LinhaReceita", x => x.Id);
+                    table.ForeignKey(
                         name: "FK_LinhaReceita_Linha",
                         column: x => x.LinhaId,
                         principalTable: "Linha",
                         principalColumn: "Id");
-                    _ = table.ForeignKey(
+                    table.ForeignKey(
                         name: "FK_LinhaReceita_Receita",
                         column: x => x.ReceitaId,
                         principalTable: "Receita",
                         principalColumn: "Id");
                 });
 
-            _ = migrationBuilder.CreateIndex(
+            migrationBuilder.CreateIndex(
                 name: "IX_Linha_FabricanteId",
                 table: "Linha",
                 column: "FabricanteId");
 
-            _ = migrationBuilder.CreateIndex(
+            migrationBuilder.CreateIndex(
                 name: "IX_Linha_TipoLinhaId",
                 table: "Linha",
                 column: "TipoLinhaId");
 
-            _ = migrationBuilder.CreateIndex(
+            migrationBuilder.CreateIndex(
                 name: "IX_LinhaReceita_LinhaId",
                 table: "LinhaReceita",
                 column: "LinhaId");
 
-            _ = migrationBuilder.CreateIndex(
+            migrationBuilder.CreateIndex(
                 name: "IX_LinhaReceita_ReceitaId",
                 table: "LinhaReceita",
                 column: "ReceitaId");
 
-            _ = migrationBuilder.CreateIndex(
+            migrationBuilder.CreateIndex(
                 name: "IX_Receita_IdRevista",
                 table: "Receita",
                 column: "IdRevista");
@@ -148,22 +149,22 @@ namespace Arthes.DATA.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            _ = migrationBuilder.DropTable(
+            migrationBuilder.DropTable(
                 name: "LinhaReceita");
 
-            _ = migrationBuilder.DropTable(
+            migrationBuilder.DropTable(
                 name: "Linha");
 
-            _ = migrationBuilder.DropTable(
+            migrationBuilder.DropTable(
                 name: "Receita");
 
-            _ = migrationBuilder.DropTable(
+            migrationBuilder.DropTable(
                 name: "Fabricante");
 
-            _ = migrationBuilder.DropTable(
+            migrationBuilder.DropTable(
                 name: "TipoLinha");
 
-            _ = migrationBuilder.DropTable(
+            migrationBuilder.DropTable(
                 name: "Revista");
         }
     }

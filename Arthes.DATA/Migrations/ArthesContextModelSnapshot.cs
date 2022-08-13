@@ -24,7 +24,10 @@ namespace Arthes.DATA.Migrations
             modelBuilder.Entity("Arthes.DATA.Models.Fabricante", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");

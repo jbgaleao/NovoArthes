@@ -5,21 +5,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Arthes.WEB.Controllers
 {
-    public class TipoLinhaController : Controller
+    public class FabricanteController : Controller
     {
 
-        private readonly IRepositoryBase<TipoLinha> _repository;
+        private readonly IRepositoryBase<Fabricante> _repository;
 
-        public TipoLinhaController(IRepositoryBase<TipoLinha> repository)
+        public FabricanteController(IRepositoryBase<Fabricante> repository)
         {
             _repository = repository;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<TipoLinha>> Index()
+        public ActionResult<IEnumerable<Fabricante>> Index()
         {
-            IEnumerable<TipoLinha>? oTipoLinha = _repository.GetAll();
-            return View(oTipoLinha);
+            IEnumerable<Fabricante>? oFabricante = _repository.GetAll();
+            return View(oFabricante);
         }
 
         [HttpGet]
@@ -30,11 +30,11 @@ namespace Arthes.WEB.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(TipoLinha tipoLinha)
+        public IActionResult Create(Fabricante fabricante)
         {
             if (ModelState.IsValid)
             {
-                _repository.Insert(tipoLinha);
+                _repository.Insert(fabricante);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -49,15 +49,15 @@ namespace Arthes.WEB.Controllers
                 return NotFound();
             }
 
-            TipoLinha tipoLinha = _repository.GetById(id);
+            Fabricante fabricante = _repository.GetById(id);
 
-            return tipoLinha == null ? NotFound() : View(tipoLinha);
+            return fabricante == null ? NotFound() : View(fabricante);
         }
 
         [HttpGet]
         public IActionResult Delete(int? id)
         {
-            TipoLinha tipoLinha = _repository.GetById(id);
+            Fabricante tipoLinha = _repository.GetById(id);
             return View(tipoLinha);
         }
 
@@ -72,31 +72,20 @@ namespace Arthes.WEB.Controllers
         [HttpGet]
         public IActionResult Edit(int? id)
         {
-            TipoLinha tipoLinha = _repository.GetById(id);
+            Fabricante tipoLinha = _repository.GetById(id);
             return View(tipoLinha);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(TipoLinha tipolinha)
+        public IActionResult Edit(Fabricante fabricante)
         {
             if (ModelState.IsValid)
             {
-                _repository.Update(tipolinha);
+                _repository.Update(fabricante);
                 return RedirectToAction(nameof(Index));
             }
-
-            return View("Edit", tipolinha);
+            return View("Edit", fabricante);
         }
-
-
-
-
-
-
-
-
-
-
     }
 }

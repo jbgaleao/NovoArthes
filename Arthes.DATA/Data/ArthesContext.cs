@@ -32,8 +32,8 @@ namespace Arthes.DATA.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=JBG-LENOVOGMING\\SQLEXPRESS;Initial Catalog=Arthes;Integrated Security=True");
-                //optionsBuilder.UseSqlServer("Data Source=NO00108978;Initial Catalog=Arthes;Integrated Security=True");
+               // optionsBuilder.UseSqlServer("Data Source=JBG-LENOVOGMING\\SQLEXPRESS;Initial Catalog=Arthes;Integrated Security=True");
+                optionsBuilder.UseSqlServer("Data Source=NO00108978;Initial Catalog=Arthes;Integrated Security=True");
             }
         }
 
@@ -41,7 +41,7 @@ namespace Arthes.DATA.Data
         {
             modelBuilder.Entity<Fabricante>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
             });
 
             modelBuilder.Entity<Linha>(entity =>

@@ -11,14 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arthes.DATA.Migrations
 {
     [DbContext(typeof(ArthesContext))]
-    [Migration("20220808121107_AlteracaoClasseReceita")]
-    partial class AlteracaoClasseReceita
+    [Migration("20220813031249_primeira")]
+    partial class primeira
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.7")
+                .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -26,7 +26,10 @@ namespace Arthes.DATA.Migrations
             modelBuilder.Entity("Arthes.DATA.Models.Fabricante", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
