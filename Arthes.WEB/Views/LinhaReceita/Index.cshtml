@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Arthes.DATA.Models.LinhaReceita>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>            
+            <th>
+                @Html.DisplayNameFor(model => model.Linha.CodLinha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Linha.NomeCor)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Receita.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Receita.NivelDificuldade)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>               
+                <td>
+                    @Html.DisplayFor(modelItem => item.Linha.CodLinha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Linha.NomeCor)
+                </td>
+
+                <td>
+  @*                   @Html.DisplayFor(modelItem => item.Receita.Nome)*@
+                     @Html.ActionLink(@item.Receita.Nome,"Details","Receita", new { id= @item.Receita.Id} )
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Receita.NivelDificuldade)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -73,6 +73,71 @@ namespace Arthes.WEB.Controllers
         }
 
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            _repository.Delete(id);
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        [HttpGet]
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Linha linha = RepositoryLinha.GetWithDetails((int)id);
+            return View(linha);
+        }
+
+
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            Linha linha = _repository.GetById(id);
+
+
+            IEnumerable<TipoLinha> oListaTipoLinha = _repositoryTipoLinha.GetAll();
+            IEnumerable<Fabricante> oListaFabricante = _repositoryFabricante.GetAll();
+            ViewBag.TipoLinha = new SelectList(oListaTipoLinha, "Id", "Descricao");
+            ViewBag.Fabricante = new SelectList(oListaFabricante, "Id", "Nome");
+
+            LinhaVM oNovaLinha = new(oListaTipoLinha, oListaFabricante);
+            oNovaLinha.CodLinha = linha.CodLinha;
+            oNovaLinha.NomeCor = linha.NomeCor;
+            return View(oNovaLinha);
+
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(LinhaVM EditadaLinha)
+        {
+            if (ModelState.IsValid)
+            {
+                Linha linha = new()
+                {
+                    Id = EditadaLinha.Id,
+                    CodLinha = EditadaLinha.CodLinha,
+                    NomeCor = EditadaLinha.NomeCor,
+                    TipoLinhaId = EditadaLinha.IdTipoLinha,
+                    FabricanteId = EditadaLinha.IdFabricante
+                };
+                _repository.Update(linha);
+                return RedirectToAction("Index");
+            }
+            return View("Index");
+        }
+
+
+
+
+
+
 
 
 
