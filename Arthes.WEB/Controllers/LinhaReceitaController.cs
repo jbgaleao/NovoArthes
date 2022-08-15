@@ -15,14 +15,7 @@ namespace Arthes.WEB.Controllers
 
         private readonly IRepositoryBase<LinhaReceita> _repository;
         private readonly IRepositoryBase<Receita> _repositoryReceita;
-        private readonly IRepositoryBase<Linha> _repositoryLinha;
-
-        public LinhaReceitaController(IRepositoryBase<LinhaReceita> repository, IRepositoryBase<Receita> repositoryReceita, IRepositoryBase<Linha> repositoryLinha)
-        {
-            _repository = repository;
-            _repositoryReceita = repositoryReceita;
-            _repositoryLinha = repositoryLinha;
-        }
+        private readonly IRepositoryBase<Linha> _repositoryLinhae;
 
         public IActionResult Index()
         {
@@ -34,33 +27,18 @@ namespace Arthes.WEB.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            IEnumerable<Linha> oListaLinha = _repositoryLinha.GetAll();
-            IEnumerable<Receita> oListaReceita = _repositoryReceita.GetAll();
-            LinhaReceitaVM olinhaReceitaVM = new LinhaReceitaVM(oListaLinha, oListaReceita);
+            //IEnumerable<TipoLinha> oListaTipoLinha = _repositoryTipoLinha.GetAll();
+            //IEnumerable<Fabricante> oListaFabricante = _repositoryFabricante.GetAll();
+            //ViewBag.TipoLinha = new SelectList(oListaTipoLinha, "Id", "Descricao");
+            //ViewBag.Fabricante = new SelectList(oListaFabricante, "Id", "Nome");
 
-            return View(olinhaReceitaVM);
+            //LinhaVM oNovaLinha = new(oListaTipoLinha, oListaFabricante);
+            return View();
         }
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(LinhaReceitaVM NovaLinhaReceita)
-        {
-            if (ModelState.IsValid)
-            {
-                Linha linha = _repositoryLinha.GetById(NovaLinhaReceita.IdLinha);
-                Receita Receita = _repositoryReceita.GetById(NovaLinhaReceita.IdReceita);
-                LinhaReceita linha_receita = new()
-                {
-                    ReceitaId = NovaLinhaReceita.IdLinha,
-                    LinhaId = NovaLinhaReceita.IdReceita
-                };
-                _repository.Insert(linha_receita);
-                return RedirectToAction(nameof(Index));
-            }
 
-            return View("Index");
-        }
+
 
 
 
