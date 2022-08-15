@@ -14,13 +14,16 @@ namespace Arthes.DATA.Models
         public int Id { get; set; }
         public int ReceitaId { get; set; }
         public int LinhaId { get; set; }
+        public IEnumerable<LinhaReceita> listaLinhaReceita { get; set; }
 
         [ForeignKey("LinhaId")]
         [InverseProperty("LinhaReceita")]
         public virtual Linha Linha { get; set; }
+        public IEnumerable<Linha> listaLinha{ get; set; }
 
         [ForeignKey("ReceitaId")]
         [InverseProperty("LinhaReceita")]
         public virtual Receita Receita { get; set; }
+        public IEnumerable<Receita> ListaReceita { get; set; }
     }
 }
