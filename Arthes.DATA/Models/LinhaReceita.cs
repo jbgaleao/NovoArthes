@@ -10,6 +10,17 @@ namespace Arthes.DATA.Models
 {
     public partial class LinhaReceita
     {
+        public LinhaReceita()
+        {
+
+        }
+
+        //public LinhaReceita(ICollection<Linha> listaLinha, ICollection<Receita> listaReceita)
+        //{
+        //    ListaLinha = listaLinha;
+        //    ListaReceita = listaReceita;
+        //}
+
         [Key]
         public int Id { get; set; }
         public int ReceitaId { get; set; }
@@ -18,9 +29,13 @@ namespace Arthes.DATA.Models
         [ForeignKey("LinhaId")]
         [InverseProperty("LinhaReceita")]
         public virtual Linha Linha { get; set; }
-
+        
         [ForeignKey("ReceitaId")]
         [InverseProperty("LinhaReceita")]
         public virtual Receita Receita { get; set; }
+
+        //public ICollection<Linha> ListaLinha { get; set; }
+        //public ICollection<Receita> ListaReceita { get; set; }
+
     }
 }
