@@ -30,11 +30,16 @@ namespace Arthes.DATA.Repositories
 
         public static List<LinhaReceita> GetAllWithDetails()
         {
+            //return context.LinhaReceita
+            //      .Include(a => a.Linha)
+            //      .Include(b => b.Receita)
+            //      .ThenInclude(c=> c.IdRevistaNavigation)
+            //      .AsNoTracking()
+            //      .ToList<LinhaReceita>();
+
             return context.LinhaReceita
-                  .Include(a => a.Linha)
-                  .Include(b => b.Receita)
-                  .AsNoTracking()
-                  .ToList<LinhaReceita>();
+                .AsNoTracking()
+                .ToList<LinhaReceita>();  
         }
     }
 }

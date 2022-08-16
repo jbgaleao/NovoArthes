@@ -99,9 +99,9 @@ namespace Arthes.WEB.Controllers
         {
             Linha linha = _repository.GetById(id);
 
-
             IEnumerable<TipoLinha> oListaTipoLinha = _repositoryTipoLinha.GetAll();
             IEnumerable<Fabricante> oListaFabricante = _repositoryFabricante.GetAll();
+
             ViewBag.TipoLinha = new SelectList(oListaTipoLinha, "Id", "Descricao");
             ViewBag.Fabricante = new SelectList(oListaFabricante, "Id", "Nome");
 

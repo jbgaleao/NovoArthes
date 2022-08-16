@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arthes.DATA.Migrations
 {
     [DbContext(typeof(ArthesContext))]
-    [Migration("20220813031249_primeira")]
-    partial class primeira
+    [Migration("20220816031233_AjusteLinhaReceita")]
+    partial class AjusteLinhaReceita
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
