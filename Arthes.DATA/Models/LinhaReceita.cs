@@ -14,7 +14,6 @@ namespace Arthes.DATA.Models
         public int Id { get; set; }
         public int ReceitaId { get; set; }
         public int LinhaId { get; set; }
-        //public IEnumerable<LinhaReceita> listaLinhaReceita { get; set; }
 
         [ForeignKey("LinhaId")]
         [InverseProperty("LinhaReceita")]
