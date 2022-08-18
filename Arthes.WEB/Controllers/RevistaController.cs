@@ -9,6 +9,7 @@ namespace Arthes.WEB.Controllers
     public class RevistaController : Controller
     {
         private readonly IRepositoryBase<Revista> _repository;
+
         public RevistaController(IRepositoryBase<Revista> repository)
         {
             _repository = repository;
@@ -87,6 +88,14 @@ namespace Arthes.WEB.Controllers
             }
 
             return View("Edit", revista);
+        }
+
+
+        [HttpGet]
+        private IActionResult ListaReceitasPorRevistaId(int id)
+        {
+            IEnumerable<Receita> oListaReceita = RepositoryReceita.GetAllWithDetails();
+            return View(oListaReceita);
         }
     }
 }

@@ -33,33 +33,13 @@ namespace Arthes.WEB.Controllers
 
         [HttpGet]
         public IActionResult Create()
-       {
+        {
             IEnumerable<Linha> oListaLinha = _repositoryLinha.GetAll();
             IEnumerable<Receita> oListaReceita = _repositoryReceita.GetAll();
-            string desc = string.Empty;            
-            
-            SelectList selectLinha = null;
-            foreach (Linha linha in oListaLinha)
-            {
-                desc = linha.CodLinha + "-" + linha.NomeCor;
-                selectLinha.Append(new SelectListItem(desc, linha.Id.ToString(), false, false));
-            }
-            ViewBag.vbLinha = selectLinha;
-
-            desc = string.Empty;
-
-            SelectList selectReceita = null;
-            foreach (Receita receita in oListaReceita)
-            {
-                desc = receita.Nome + "-" + receita.NivelDificuldade;
-                selectReceita.Append(new SelectListItem(desc, receita.Id.ToString(), false, false));
-            }
-            ViewBag.vbLinha = selectReceita;
-
-
+            ViewBag.vbLinha = new SelectList(oListaLinha, "Id", "NomeCor");
             ViewBag.vbReceita = new SelectList(oListaReceita, "Id", "Nome");
 
-            LinhaReceitaVM olinhaReceitaVM = new LinhaReceitaVM(oListaLinha, oListaReceita);
+            LinhaReceitaVM olinhaReceitaVM = new(oListaLinha, oListaReceita);
 
             return View(olinhaReceitaVM);
         }

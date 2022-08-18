@@ -22,6 +22,16 @@ namespace Arthes.DATA.Repositories
                   .AsNoTracking()
                   .ToList<Receita>();
         }
+
+        public static List<Receita> ListaReceitasPorRevistaId(int id)
+        {
+            return context.Receita
+                  .Include(a => a.IdRevistaNavigation)
+                  .AsNoTracking()
+                  .Where(a => a.IdRevistaNavigation.Id == id)
+                  .ToList<Receita>();
+        }
+
         public static Receita GetWithDetails(int id)
         {
             return context.Receita
