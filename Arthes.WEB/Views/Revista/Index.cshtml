@@ -5,27 +5,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Revistas</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Nova Revista</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Tema)
+                @Html.Label("Tema")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NumEdicao)
+                @Html.Label("Número Edição")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MesEdicao)
+                @Html.Label("Mês Edição")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AnoEdicao)
+                @Html.Label("Ano Edição")
             </th>
-            <th></th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -44,10 +44,10 @@
                 @Html.DisplayFor(modelItem => item.AnoEdicao)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                    <a asp-action="~/Receita/ListaReceitasPorRevistaId" asp-route-id="@item.Id">Ver Receitas da Revista</a> |
+                <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id"><i class="fa fa-edit"></i></a>
+                <a asp-action="Details" class="btn btn-primary" asp-route-id="@item.Id"><i class="fa fa-search"></i></a>
+                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id"><i class="fa fa-trash"></i></a>
+                <a asp-action="~/Receita/ListaReceitasPorRevistaId" asp-route-id="@item.Id">Ver Receitas da Revista</a> |
                 @*@Html.ActionLink("Ver Receitas da Revista","ListaReceitasPorRevistaId","Receita", new { @id = @item.Id} )*@
             </td>
         </tr>
