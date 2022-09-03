@@ -1,4 +1,5 @@
-﻿using Arthes.DATA.Interfaces;
+﻿#nullable disable
+using Arthes.DATA.Interfaces;
 using Arthes.DATA.Models;
 using Arthes.DATA.Repositories;
 
@@ -10,8 +11,8 @@ namespace Arthes.WEB.Controllers
     {
         private readonly IRepositoryBase<Revista> _repository;
 
-        public RevistaController(IRepositoryBase<Revista> repository)
-        {
+
+        public RevistaController(IRepositoryBase<Revista> repository) { 
             _repository = repository;
         }
 
@@ -94,7 +95,7 @@ namespace Arthes.WEB.Controllers
         [HttpGet]
         private IActionResult ListaReceitasPorRevistaId(int id)
         {
-            IEnumerable<Receita> oListaReceita = RepositoryReceita.GetAllWithDetails();
+            IEnumerable<Receita> oListaReceita = RepositoryReceita.GetAllWithDetails(id);
             return View(oListaReceita);
         }
     }

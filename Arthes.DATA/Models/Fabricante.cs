@@ -19,5 +19,6 @@ namespace Arthes.DATA.Models
 
         [InverseProperty("Fabricante")]
         public virtual ICollection<Linha> Linha { get; set; }
+
     }
 }

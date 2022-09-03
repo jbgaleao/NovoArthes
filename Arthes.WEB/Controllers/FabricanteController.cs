@@ -1,5 +1,6 @@
 ﻿using Arthes.DATA.Interfaces;
 using Arthes.DATA.Models;
+using Arthes.DATA.Repositories;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +8,7 @@ namespace Arthes.WEB.Controllers
 {
     public class FabricanteController : Controller
     {
-
+        public string Mensagem { get; set; }
         private readonly IRepositoryBase<Fabricante> _repository;
 
         public FabricanteController(IRepositoryBase<Fabricante> repository)
@@ -37,7 +38,7 @@ namespace Arthes.WEB.Controllers
                 _repository.Insert(fabricante);
                 return RedirectToAction(nameof(Index));
             }
-
+            
             return View("Index");
         }
 
@@ -57,23 +58,31 @@ namespace Arthes.WEB.Controllers
         [HttpGet]
         public IActionResult Delete(int? id)
         {
-            Fabricante tipoLinha = _repository.GetById(id);
-            return View(tipoLinha);
+            Fabricante fabricante = _repository.GetById(id);
+            return View(fabricante);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
-            _repository.Delete(id);
-            return RedirectToAction(nameof(Index));
+            if (RepositoryFabricante.TemLinhaAssociada(id))
+            {
+                ModelState.AddModelError("Nome", "Existe(m) Linha(s) associada(s) a este Fabricante.");
+                return RedirectToAction("Delete", id);
+            }
+            else
+            {
+                _repository.Delete(id);
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         [HttpGet]
         public IActionResult Edit(int? id)
         {
-            Fabricante tipoLinha = _repository.GetById(id);
-            return View(tipoLinha);
+            Fabricante fabricante = _repository.GetById(id);
+            return View(fabricante);
         }
 
         [HttpPost]

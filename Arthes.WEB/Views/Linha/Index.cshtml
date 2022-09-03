@@ -4,27 +4,27 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Linha</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Nova Linha</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CodLinha)
+                @Html.Label("Código da Linha")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NomeCor)
+                @Html.Label("Nome da Cor")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Fabricante)
+               @Html.Label("Fabricante")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TipoLinha)
+                @Html.Label("Tipo de Linha")
             </th>
-            <th></th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -43,9 +43,9 @@
                 @Html.DisplayFor(modelItem => item.TipoLinha.Descricao)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id"><i class="fa fa-edit"></i></a>
+                <a asp-action="Details" class="btn btn-primary" asp-route-id="@item.Id"><i class="fa fa-search"></i></a>
+                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id"><i class="fa fa-trash"></i></a>
             </td>
         </tr>
 }
