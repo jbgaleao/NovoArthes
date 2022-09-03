@@ -1,6 +1,6 @@
 ﻿using Arthes.DATA.Interfaces;
 using Arthes.DATA.Models;
-
+using Arthes.DATA.Repositories;
 
 using Microsoft.AspNetCore.Mvc;
 
