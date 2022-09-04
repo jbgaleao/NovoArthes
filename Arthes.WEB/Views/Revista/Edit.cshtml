@@ -2,48 +2,54 @@
 @model Arthes.DATA.Models.Revista
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>Editar</h1>
 
-<h4>Revista</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="card">
+    <div class="card-header">
+        <h4>Revista</h4>
+    </div>
+
+    <div class="card-body">
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Tema" class="control-label"></label>
-                <input asp-for="Tema" class="form-control" />
-                <span asp-validation-for="Tema" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumEdicao" class="control-label"></label>
-                <input asp-for="NumEdicao" class="form-control" />
-                <span asp-validation-for="NumEdicao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MesEdicao" class="control-label"></label>
-                <select asp-for="MesEdicao" class="form-control" asp-items="Html.GetEnumSelectList<Mes>()"></select>
-                <span asp-validation-for="MesEdicao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AnoEdicao" class="control-label"></label>
-                <input asp-for="AnoEdicao" class="form-control" />
-                <span asp-validation-for="AnoEdicao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="col-md row">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group col-md-6">
+                    <label asp-for="Tema" class="control-label"></label>
+                    <input asp-for="Tema" class="form-control" />
+                    <span asp-validation-for="Tema" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="control-label">Número Edição</label>
+                    <input asp-for="NumEdicao" type="text" class="form-control" />
+                    <span asp-validation-for="NumEdicao" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="control-label">Mês Edição</label>
+                    <select asp-for="MesEdicao" class="form-control" asp-items="Html.GetEnumSelectList<Mes>()"></select>
+                    <span asp-validation-for="MesEdicao" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="control-label">Ano Edição</label>
+                    <input asp-for="AnoEdicao" type="text" class="form-control" />
+                    <span asp-validation-for="AnoEdicao" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-2" style="padding-top: 18px;">
+                    <button type="submit" value="Update" class="btn btn-success"><i class="fa-solid fa-repeat"></i>&emsp; Salvar</button>
+                </div>
             </div>
         </form>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div class="card-footer">
+        <div class="col-md-2">
+            <a asp-action="Index" class="btn btn-outline-dark"><i class="fa fa-home"></i>&emsp; Voltar</a>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

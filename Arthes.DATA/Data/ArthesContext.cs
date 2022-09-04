@@ -15,8 +15,7 @@ namespace Arthes.DATA.Data
         {
         }
 
-        public ArthesContext(DbContextOptions<ArthesContext> options)
-            : base(options)
+        public ArthesContext(DbContextOptions<ArthesContext> options) : base(options)
         {
         }
 
@@ -32,8 +31,8 @@ namespace Arthes.DATA.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-               // optionsBuilder.UseSqlServer("Data Source=JBG-LENOVOGMING\\SQLEXPRESS;Initial Catalog=Arthes;Integrated Security=True");
-                optionsBuilder.UseSqlServer("Data Source=NO00108978;Initial Catalog=Arthes;Integrated Security=True");
+               optionsBuilder.UseSqlServer("Data Source=JBG-LENOVOGMING\\SQLEXPRESS;Initial Catalog=Arthes;Integrated Security=True");
+                // optionsBuilder.UseSqlServer("Data Source=NO00108978;Initial Catalog=Arthes;Integrated Security=True");
             }
         }
 

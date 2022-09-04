@@ -26,5 +26,7 @@ namespace Arthes.WEB.Models
         public virtual Receita receita { get; set; }
         public IEnumerable<Receita> ListaReceita { get; set; }
 
+        public int? QtdNovelo { get; set; }
+
     }
 }

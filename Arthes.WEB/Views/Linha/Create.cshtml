@@ -1,44 +1,52 @@
 ﻿@model Arthes.WEB.Models.LinhaVM
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Cadastro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Cadastro</h1>
 
-<h4>Linha</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="card">
+    <div class="card-header">
+        <h4>Linhas</h4>
+    </div>
+
+    <div class="card-body">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="CodLinha" class="control-label"></label>
-                <input asp-for="CodLinha" class="form-control" />
-                <span asp-validation-for="CodLinha" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NomeCor" class="control-label"></label>
-                <input asp-for="NomeCor" class="form-control" />
-                <span asp-validation-for="NomeCor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdTipoLinha" class="control-label"></label>
-                @Html.DropDownListFor(model => model.IdTipoLinha, new SelectList(ViewBag.TipoLinha, "Value", "Text"), new {@class="form-control"})
-            </div>
-            <div class="form-group">
-                <label asp-for="IdFabricante" class="control-label"></label>
-                @Html.DropDownListFor(model => model.IdFabricante, new SelectList(ViewBag.Fabricante, "Value", "Text"), new {@class="form-control"})
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="col-md row">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group col-md-1">
+                    <label class="control-label">Cód Linha</label>
+                    <input asp-for="CodLinha" class="form-control" />
+                    <span asp-validation-for="CodLinha" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-5">
+                    <label class="control-label">Nome da Cor</label>
+                    <input asp-for="NomeCor" class="form-control" />
+                    <span asp-validation-for="NomeCor" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="control-label">Tipo da Linha</label>
+                    @Html.DropDownListFor(model => model.IdTipoLinha, new SelectList(ViewBag.TipoLinha, "Value", "Text"), new {@class="form-control"})
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="control-label">Fabricante</label>
+                    @Html.DropDownListFor(model => model.IdFabricante, new SelectList(ViewBag.Fabricante, "Value", "Text"), new {@class="form-control"})
+                </div>
+
+                <div class="form-group col-md-2" style="padding-top: 18px;">
+                    <input type="submit" value="Create" class="btn btn-success" />
+                </div>
             </div>
         </form>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div class="card-footer">
+        <div class="col-md-2">
+            <a asp-action="Index" class="btn btn-outline-dark"><i class="fa fa-home-lg"></i></a>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

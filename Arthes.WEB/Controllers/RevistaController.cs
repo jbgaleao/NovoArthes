@@ -12,7 +12,8 @@ namespace Arthes.WEB.Controllers
         private readonly IRepositoryBase<Revista> _repository;
 
 
-        public RevistaController(IRepositoryBase<Revista> repository) { 
+        public RevistaController(IRepositoryBase<Revista> repository)
+        {
             _repository = repository;
         }
 

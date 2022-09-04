@@ -8,49 +8,50 @@
 <h1>Revistas</h1>
 
 <p>
-    <a asp-action="Create">Nova Revista</a>
+    <a asp-action="Create" class="btn btn-secondary"><i class="fa fa-circle-plus"></i>&emsp; Nova Revista</a>
 </p>
 <table class="table">
+
     <thead>
         <tr>
-            <th>
+            <th style="width: 30%">
                 @Html.Label("Tema")
             </th>
-            <th>
-                @Html.Label("Número Edição")
+            <th style="width: 10%">
+                @Html.Label("Número")
             </th>
-            <th>
-                @Html.Label("Mês Edição")
+            <th style="width: 10%">
+                @Html.Label("Mês")
             </th>
-            <th>
-                @Html.Label("Ano Edição")
+            <th style="width: 10%">
+                @Html.Label("Ano")
             </th>
             <th>Ações</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tema)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumEdicao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MesEdicao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnoEdicao)
-            </td>
-            <td>
-                <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id"><i class="fa fa-edit"></i></a>
-                <a asp-action="Details" class="btn btn-primary" asp-route-id="@item.Id"><i class="fa fa-search"></i></a>
-                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id"><i class="fa fa-trash"></i></a>
-                <a asp-action="~/Receita/ListaReceitasPorRevistaId" asp-route-id="@item.Id">Ver Receitas da Revista</a> |
-                @*@Html.ActionLink("Ver Receitas da Revista","ListaReceitasPorRevistaId","Receita", new { @id = @item.Id} )*@
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tema)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumEdicao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MesEdicao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnoEdicao)
+                </td>
+                <td style="width: 30%">
+                    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id"><i class="fa fa-edit"></i>&emsp; Editar</a>
+                    <a asp-action="Details" class="btn btn-primary" asp-route-id="@item.Id"><i class="fa fa-search"></i>&emsp; Detalhes</a>
+                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id"><i class="fa fa-trash"></i>&emsp; Excluir</a>
+                    <a asp-action="~/Receita/ListaReceitasPorRevistaId" title= "Ver as Receitas da Revista"  class="btn btn-outline-secondary" asp-route-id="@item.Id"><i class="fa-sharp fa-solid fa-bars"></i></a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
